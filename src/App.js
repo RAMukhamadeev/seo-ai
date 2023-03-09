@@ -167,17 +167,17 @@ const frameworks = [
     }
 ];
 const languages = [
-    { "label": "English", "value": "English" },
-    { "label": "French", "value": "French" },
-    { "label": "Spanish", "value": "Spanish" },
-    { "label": "German", "value": "German" },
-    { "label": "Italian", "value": "Italian" },
-    { "label": "Portuguese", "value": "Portuguese" },
-    { "label": "Dutch", "value": "Dutch" },
-    { "label": "Russian", "value": "Russian" },
-    { "label": "Chinese", "value": "Chinese" },
-    { "label": "Japanese", "value": "Japanese" },
-    { "label": "Korean", "value": "Korean" }
+    {"label": "English", "value": "English"},
+    {"label": "French", "value": "French"},
+    {"label": "Spanish", "value": "Spanish"},
+    {"label": "German", "value": "German"},
+    {"label": "Italian", "value": "Italian"},
+    {"label": "Portuguese", "value": "Portuguese"},
+    {"label": "Dutch", "value": "Dutch"},
+    {"label": "Russian", "value": "Russian"},
+    {"label": "Chinese", "value": "Chinese"},
+    {"label": "Japanese", "value": "Japanese"},
+    {"label": "Korean", "value": "Korean"}
 ]
 
 const saltHelper = "3jA0FrwWkgxIQ/x3MfGPXg2mexIvp6TOEtotXptxorq0O14kbvlMAu7t!!/djqIS";
@@ -264,72 +264,88 @@ const App = () => {
     };
 
     return (
-        <div className="row gx-5 m-4">
-            <div className="col-4">
-                <div>
-                    <label className="form-label">
-                        Language
-                    </label>
-                    <select value={language} onChange={onLanguageChange} className="form-select">
-                        {languages.map((option) => (
-                            <option
-                                key={option.value}
-                                value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </select>
+        <div>
+            <div className="row gx-5 m-4">
+                <div className="col-4">
+                    <div>
+                        <label className="form-label">
+                            Language
+                        </label>
+                        <select value={language} onChange={onLanguageChange} className="form-select">
+                            {languages.map((option) => (
+                                <option
+                                    key={option.value}
+                                    value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="mt-4">
+                        <label className="form-label">
+                            Tone
+                        </label>
+                        <select value={tone} onChange={onToneChange} className="form-select">
+                            {tones.map((option) => (
+                                <option
+                                    key={option.value}
+                                    value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="mt-4">
+                        <label className="form-label">
+                            Framework
+                        </label>
+                        <select value={framework} onChange={onFrameworkChange} className="form-select">
+                            {frameworks.map((option) => (
+                                <option
+                                    key={option.value}
+                                    value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="mt-4">
+                        <label className="form-label">
+                            Company Description
+                        </label>
+                        <textarea onChange={onCompanyDescriptionChange} className="form-control" rows="4">
+                    </textarea>
+                    </div>
+                    <div className="mt-5">
+                        <button onClick={onComposeClick} className="btn btn-primary w-100" disabled={isLoading}>
+                            {isLoading ?
+                                <>
+                                    <span
+                                        className="spinner-grow spinner-grow-sm mx-2"
+                                        role="status"
+                                        aria-hidden="true">
+                                    </span>
+                                    Loading...
+                                </>
+                                :
+                                <>
+                                    Compose
+                                </>
+                            }
+                        </button>
+                    </div>
                 </div>
-                <div className="mt-4">
+                <div className="col-8">
                     <label className="form-label">
-                        Tone
+                        Advertisement
                     </label>
-                    <select value={tone} onChange={onToneChange} className="form-select">
-                        {tones.map((option) => (
-                            <option
-                                key={option.value}
-                                value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="mt-4">
-                    <label className="form-label">
-                        Framework
-                    </label>
-                    <select value={framework} onChange={onFrameworkChange} className="form-select">
-                        {frameworks.map((option) => (
-                            <option
-                                key={option.value}
-                                value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="mt-4">
-                    <label className="form-label">
-                        Company Description
-                    </label>
-                    <textarea onChange={onCompanyDescriptionChange} className="form-control" rows="4">
+                    <textarea
+                        readOnly={true}
+                        value={resultAdvertisement}
+                        className="form-control"
+                        rows="20">
                     </textarea>
                 </div>
-                <div className="mt-5">
-                    <button onClick={onComposeClick} className="btn btn-primary" disabled={isLoading}>
-                        Compose
-                    </button>
-                </div>
-            </div>
-            <div className="col-6">
-                <label className="form-label">
-                    Advertisement
-                </label>
-                <textarea
-                    value={resultAdvertisement}
-                    className="form-control"
-                    rows="16">
-                </textarea>
             </div>
         </div>
     );
