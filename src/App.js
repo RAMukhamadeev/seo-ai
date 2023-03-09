@@ -239,6 +239,7 @@ const App = () => {
         const openAiToken = tokenDecipher(encryptedToken);
 
         setIsLoading(true);
+        setResultAdvertisement('');
         const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
