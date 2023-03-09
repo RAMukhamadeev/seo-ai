@@ -175,6 +175,7 @@ const App = () => {
     const [framework, setFramework] = useState('AIDA');
     const [companyDescription, setCompanyDescription] = useState();
     const [resultAdvertisement, setResultAdvertisement] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     const onToneChange = (event) => {
         setTone(event.target.value);
@@ -219,6 +220,7 @@ const App = () => {
         const tokenDecipher = decipher(saltHelper);
         const openAiToken = tokenDecipher(encryptedToken);
 
+        setIsLoading(true);
         const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
@@ -226,7 +228,7 @@ const App = () => {
                 "messages": [
                     {
                         "role": "user",
-                        "content": `Compose proposal using ${framework} framework with ${tone} tone regarding company with this description: (${companyDescription})`
+                        "content": `Compose advertising text using ${framework} framework with ${tone} tone regarding company with this description: (${companyDescription})`
                     }
                 ]
             },
@@ -238,8 +240,8 @@ const App = () => {
             }
         );
         const resultAiOutput = response.data.choices[0].message.content.trim();
-
         setResultAdvertisement(resultAiOutput);
+        setIsLoading(false);
     };
 
     return (
@@ -281,7 +283,7 @@ const App = () => {
                     </textarea>
                 </div>
                 <div className="mt-5">
-                    <button onClick={onComposeClick} className="btn btn-primary">
+                    <button onClick={onComposeClick} className="btn btn-primary" disabled={isLoading}>
                         Compose
                     </button>
                 </div>
