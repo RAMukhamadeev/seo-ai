@@ -171,6 +171,7 @@ const App = () => {
     const [tone, setTone] = useState('Candid');
     const [framework, setFramework] = useState('PASTOR');
     const [companyDescription, setCompanyDescription] = useState();
+    const [resultAdvertisement, setResultAdvertisement] = useState();
 
     const onToneChange = (event) => {
         setTone(event.target.value);
@@ -190,21 +191,26 @@ const App = () => {
         console.log(companyDescription);
 
         const response = await axios.post(
-            'https://api.openai.com/v1/engines/davinci-codex/completions',
+            'https://api.openai.com/v1/chat/completions',
             {
-                prompt: 'who are you?',
-                max_tokens: 150,
-                temperature: 0.7,
+                "model": "gpt-3.5-turbo",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": `Compose proposal using ${framework} framework with ${tone} tone regarding company with this description: (${companyDescription})`
+                    }
+                ]
             },
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer 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`,
+                    Authorization: 'Bearer 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',
                 },
             }
         );
+        const resultAiOutput = response.data.choices[0].message.content.trim();
 
-        console.log(JSON.stringify(response.data.choices[0].text, null, 4));
+        setResultAdvertisement(resultAiOutput);
     };
 
     return (
@@ -255,7 +261,10 @@ const App = () => {
                 <label className="form-label">
                     Advertisement
                 </label>
-                <textarea className="form-control" rows="16">
+                <textarea
+                    value={resultAdvertisement}
+                    className="form-control"
+                    rows="16">
                 </textarea>
             </div>
         </div>
