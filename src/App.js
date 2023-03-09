@@ -168,11 +168,11 @@ const frameworks = [
 ];
 
 const saltHelper = "3jA0FrwWkgxIQ/x3MfGPXg2mexIvp6TOEtotXptxorq0O14kbvlMAu7t!!/djqIS";
-const encryptedToken = "1f0741092d193e3516002a195c1e1f3d1f5d55393f1f1e385f2e000e072a261b085836252d0f5b3c265b3c1f1a3c0b3d0e270a";
+const encryptedToken = "1f07410a2b1f152b29081a1c5b5c5e2b083b093d1e1d3e385f2e000e072a261b2a1924362b2a1d1e213f340d1801183a1a3d06";
 
 const App = () => {
     const [tone, setTone] = useState('Candid');
-    const [framework, setFramework] = useState('PASTOR');
+    const [framework, setFramework] = useState('AIDA');
     const [companyDescription, setCompanyDescription] = useState();
     const [resultAdvertisement, setResultAdvertisement] = useState();
 
@@ -192,7 +192,7 @@ const App = () => {
     const cipher = salt => {
         const textToChars = text => text.split('').map(c => c.charCodeAt(0));
         const byteHex = n => ("0" + Number(n).toString(16)).substr(-2);
-        const applySaltToChar = code => textToChars(salt).reduce((a,b) => a ^ b, code);
+        const applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
 
         return text => text.split('')
             .map(textToChars)
@@ -200,11 +200,11 @@ const App = () => {
             .map(byteHex)
             .join('');
     }
-    */
+     */
 
     const decipher = salt => {
         const textToChars = text => text.split('').map(c => c.charCodeAt(0));
-        const applySaltToChar = code => textToChars(salt).reduce((a,b) => a ^ b, code);
+        const applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
         return encoded => encoded.match(/.{1,2}/g)
             .map(hex => parseInt(hex, 16))
             .map(applySaltToChar)
@@ -213,6 +213,9 @@ const App = () => {
     }
 
     const onComposeClick = async () => {
+        //const tokenCipher = cipher(saltHelper);
+        //console.log(tokenCipher('<some-key>'));
+
         const tokenDecipher = decipher(saltHelper);
         const openAiToken = tokenDecipher(encryptedToken);
 
