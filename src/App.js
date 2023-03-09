@@ -1,5 +1,6 @@
 import './App.css';
 import {useState} from "react";
+import axios from "axios";
 
 const tones = [
     {
@@ -183,10 +184,27 @@ const App = () => {
         setCompanyDescription(event.target.value);
     };
 
-    const onComposeClick = () => {
+    const onComposeClick = async () => {
         console.log(tone);
         console.log(framework);
         console.log(companyDescription);
+
+        const response = await axios.post(
+            'https://api.openai.com/v1/engines/davinci-codex/completions',
+            {
+                prompt: 'who are you?',
+                max_tokens: 150,
+                temperature: 0.7,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer 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`,
+                },
+            }
+        );
+
+        console.log(JSON.stringify(response.data.choices[0].text, null, 4));
     };
 
     return (
