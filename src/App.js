@@ -166,6 +166,19 @@ const frameworks = [
         "value": "STORYTELLING"
     }
 ];
+const languages = [
+    { "label": "English", "value": "English" },
+    { "label": "French", "value": "French" },
+    { "label": "Spanish", "value": "Spanish" },
+    { "label": "German", "value": "German" },
+    { "label": "Italian", "value": "Italian" },
+    { "label": "Portuguese", "value": "Portuguese" },
+    { "label": "Dutch", "value": "Dutch" },
+    { "label": "Russian", "value": "Russian" },
+    { "label": "Chinese", "value": "Chinese" },
+    { "label": "Japanese", "value": "Japanese" },
+    { "label": "Korean", "value": "Korean" }
+]
 
 const saltHelper = "3jA0FrwWkgxIQ/x3MfGPXg2mexIvp6TOEtotXptxorq0O14kbvlMAu7t!!/djqIS";
 const encryptedToken = "1f07410a2b1f152b29081a1c5b5c5e2b083b093d1e1d3e385f2e000e072a261b2a1924362b2a1d1e213f340d1801183a1a3d06";
@@ -173,6 +186,7 @@ const encryptedToken = "1f07410a2b1f152b29081a1c5b5c5e2b083b093d1e1d3e385f2e000e
 const App = () => {
     const [tone, setTone] = useState('Candid');
     const [framework, setFramework] = useState('AIDA');
+    const [language, setLanguage] = useState('English');
     const [companyDescription, setCompanyDescription] = useState();
     const [resultAdvertisement, setResultAdvertisement] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -183,6 +197,10 @@ const App = () => {
 
     const onFrameworkChange = (event) => {
         setFramework(event.target.value);
+    };
+
+    const onLanguageChange = (event) => {
+        setLanguage(event.target.value);
     };
 
     const onCompanyDescriptionChange = (event) => {
@@ -228,7 +246,7 @@ const App = () => {
                 "messages": [
                     {
                         "role": "user",
-                        "content": `Compose advertising text using ${framework} framework with ${tone} tone regarding company with this description: (${companyDescription})`
+                        "content": `Compose advertising text in ${language} language using ${framework} framework with ${tone} tone regarding company with this description: (${companyDescription})`
                     }
                 ]
             },
@@ -248,6 +266,20 @@ const App = () => {
         <div className="row gx-5 m-4">
             <div className="col-4">
                 <div>
+                    <label className="form-label">
+                        Language
+                    </label>
+                    <select value={language} onChange={onLanguageChange} className="form-select">
+                        {languages.map((option) => (
+                            <option
+                                key={option.value}
+                                value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mt-4">
                     <label className="form-label">
                         Tone
                     </label>
