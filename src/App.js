@@ -204,7 +204,7 @@ const App = () => {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer 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',
+                    Authorization: 'Bearer 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',
                 },
             }
         );
